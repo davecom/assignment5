@@ -37,7 +37,6 @@
 using namespace std;
 
 namespace csi281 {
-    
     // Performs an in-place ascending sort of *array*
     // using the merge sort algorithm
     // *start* is the first element of the array to start sorting from
@@ -47,7 +46,16 @@ namespace csi281 {
     // http://www.cplusplus.com/reference/algorithm/inplace_merge/
     template <typename T>
     void mergeSort(T array[], const int start, const int end) {
-        // YOUR CODE HERE
+		/*
+		if (start < end)
+		{
+			int middle = (start + end) / 2;
+			mergeSort(array, start, middle);
+			mergeSort(array, middle + 1, end);
+			inplace_merge(start, middle, end);
+		}
+		*/
+
     }
     
     // setup random number generator
@@ -69,7 +77,32 @@ namespace csi281 {
     // the appropriate place
     template <typename T>
     void quickSort(T array[], const int start, const int end) {
-        // YOUR CODE HERE
+		if (start < end)
+		{
+			srand(time(NULL));
+			int partition = rand() % (end + 1) + start;
+			T pivot = array[partition];
+			int index = (start - 1);
+			for (int i = start; i <= end - 1; i++)
+			{
+				if (array[i] < pivot)
+				{
+					index++;
+					T temp1;
+					temp1 = array[index];
+					array[index] = array[i];
+					array[i] = temp1;
+				}
+			}
+			T temp2;
+			temp2 = array[index + 1];
+			array[index + 1] = array[end];
+			array[end] = temp2;
+			index++;
+
+			quickSort(array, start, index - 1);
+			quickSort(array, index + 1, end);
+		}
     }
     
     // Performs an in-place ascending sort of *array*
@@ -86,7 +119,7 @@ namespace csi281 {
     // sort part of the array as per the parameters of this version
     template <typename T>
     void insertionSort(T array[], const int start, const int end) {
-        // YOUR CODE HERE
+        
     }
     
     // Performs an in-place ascending sort of *array*
@@ -99,7 +132,7 @@ namespace csi281 {
     // should be able to call the insertionSort above
     template <typename T>
     void hybridSort(T array[], const int start, const int end) {
-        // YOUR CODE HERE
+        
     }
     
     
