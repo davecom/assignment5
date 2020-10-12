@@ -33,6 +33,7 @@
 
 #include <algorithm> // for swap(), merge()
 #include <random>
+#include <vector>
 
 using namespace std;
 
@@ -45,19 +46,35 @@ namespace csi281 {
     // NOTE: Your solution MUST use std::inplace_merge
     // http://www.cplusplus.com/reference/algorithm/inplace_merge/
     template <typename T>
-    void mergeSort(T array[], const int start, const int end) {
-		/*
+	void mergeSort(T array[], const int start, const int end) {
 		if (start < end)
 		{
 			int middle = (start + end) / 2;
+			T left[middle + 1 - start];
+			T right[last + 1 - middle];
+			for (int i = 0; i < left.length(); i++)
+			{
+				left[i] = array[start + i];
+			}
+			for (int i = 0; i < right.length(); i++)
+			{
+				right[i] = array[middle + i];
+			}
+
+			std::vector<T> sorted(end - start + 1);
+			std::vector<T>::iterator it;
+
 			mergeSort(array, start, middle);
 			mergeSort(array, middle + 1, end);
-			inplace_merge(start, middle, end);
-		}
-		*/
 
-    }
-    
+			it = std::copy(left, left + middle, sorted.begin());
+			std::copy(right, right + middle, it);
+
+			std::inplace_merge(sorted.begin(), sorted.begin() + middle, sorted.end());
+
+			//Would have been nice to know how to actually use inplace_merge like maybe if it were taught in class
+		}
+	}
     // setup random number generator
     static random_device rd;
     static mt19937 rng(rd());
@@ -119,7 +136,23 @@ namespace csi281 {
     // sort part of the array as per the parameters of this version
     template <typename T>
     void insertionSort(T array[], const int start, const int end) {
-        
+		T key;
+		int j;
+		//start iteration through array
+		for (int i = start; i < end; i++)
+		{
+			//set the key element to the element proceeding the one at hand
+			key = array[i];
+			j = i - 1;
+			//compare key element to its predecessors and put key in its sorted place
+			while (j >= 0 && array[j] > key)
+			{
+				array[j + 1] = array[j];
+				j -= 1;
+			}
+			//set next element to key
+			array[j + 1] = key;
+		}
     }
     
     // Performs an in-place ascending sort of *array*
@@ -132,7 +165,18 @@ namespace csi281 {
     // should be able to call the insertionSort above
     template <typename T>
     void hybridSort(T array[], const int start, const int end) {
-        
+		while (start < end)
+		{
+			if (end - start - 1 < 10)
+			{
+				mergeSort(array, start, end);
+				break;
+			}
+			else
+			{
+				insertionSort(array, start, end);
+			}
+		}
     }
     
     
