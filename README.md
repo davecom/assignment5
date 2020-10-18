@@ -6,7 +6,7 @@ You may look at pseudo code such as that provided in the reading or on Wikipedia
 
 NOTE: For this assignment you are not allowed to add additional functions to the source files (even utility functions). Please just fill-in the provided function templates.
 
-NOTE: Please be sure to carefully read the requirements in the comments above each function. There are more specific requirements for this assignment than some in the past.
+NOTE: Please be sure to carefully read the requirements in the comments above each function. There are more specific requirements for this assignment than some in the past. 
 
 ## Basic Instructions
 
